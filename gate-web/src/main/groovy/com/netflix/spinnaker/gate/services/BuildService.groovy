@@ -46,7 +46,7 @@ class BuildService {
     if (!igorService) {
       return []
     }
-    HystrixFactory.newListCommand(GROUP, "masters") { 
+    HystrixFactory.newListCommand(GROUP, "masters") {
       if(buildServiceType) {
         igorService.getBuildMasters(buildServiceType)
       } else {
@@ -136,4 +136,20 @@ class BuildService {
   @ResponseStatus(HttpStatus.NOT_FOUND)
   @InheritConstructors
   static class BuildMasterNotFound extends HystrixBadRequestException {}
+
+  Map v3GetJobConfig(String buildMaster, String job) {
+    if (!igorService) {
+      return [:]
+    }
+    HystrixFactory.newMapCommand(GROUP, "jobConfig") {
+      try {
+        igorService.v3GetJobConfig(buildMaster, encode(job))
+      } catch (RetrofitError e) {
+        if (e.response?.status == 404) {
+          throw new BuildMasterNotFound("Build master '${buildMaster}' not found")
+        }
+        throw e
+      }
+    } execute()
+  }
 }
