@@ -106,7 +106,7 @@ class BuildController {
   @RequestMapping(value = "/v3/builds/{buildMaster}/job", method = RequestMethod.GET)
   Map v3GetJobConfig(@PathVariable("buildMaster") String buildMaster,
                      @RequestParam(value = "job", required = true) String job) {
-    buildService.getJobConfig(buildMaster, job)
+    buildService.v3GetJobConfig(buildMaster, job)
   }
 
   @ApiOperation(value = "Get builds for build master", response = List.class)

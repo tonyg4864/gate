@@ -6,6 +6,7 @@ build/
 out/
 /.idea/
 *.rdb
+node_modules/
 
 .classpath
 .project
@@ -13,3 +14,4 @@ out/
 swagger.json
 swagger/swagger.json
 bin/
+yarn.lock

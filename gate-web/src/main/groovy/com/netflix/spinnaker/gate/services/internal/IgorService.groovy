@@ -51,4 +51,7 @@ interface IgorService {
 
   @GET('/builds/status/{number}/{buildMaster}/{job}')
   Map getBuild(@Path("buildMaster") String buildMaster, @EncodedPath("job") String job, @Path("number") String number)
+
+  @GET('/v3/jobs/{buildMaster}')
+  Map v3GetJobConfig(@Path("buildMaster") String buildMaster, @Query("job") String job)
 }
